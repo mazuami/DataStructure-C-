@@ -1,3 +1,157 @@
+
+/* -- Check if a linked list is Palindrom ---- */
+/*---- 1) Find total elements in the linked list ---------*/
+/*-----2) Find the middle element ------------------------*/
+/*-----3) If total element is an odd number then ----------*/
+/*-----4)  then run a loop till the middle element to push the elements to put into a Stack -----*/
+/*-----5)  Run a loop for the remaining  elements-----------*/
+/*-----6)  pop the elements from the stack and compare the elements with remaining element ------*/
+/*-----7)  if the elements are same then return true its palindrom
+/*-----8) Else move one element ahead ---------------------*/
+/*-----9)  then run a loop till the middle element to push the elements to put into a Stack -----*/
+/*-----10)  Run a loop for the remaining  elements-----------*/
+/*-----11)  pop the elements from the stack and compare the elements with remaining element ------*/
+/*-----12)  if the elements are same then return true its palindrom
+
+#include<stdio.h>
+struct Node {
+    int data;
+    struct Node *next; 
+    
+};
+
+struct StackNode{
+    int data;
+    struct StackNode *next;
+};
+
+struct StackNode *top=NULL;
+
+void push(int _data){
+    struct StackNode *newNode= new StackNode();
+    newNode->data=_data;
+    newNode->next=top;
+    top=newNode;
+    
+}
+
+
+struct StackNode* pop(){
+    struct StackNode *temp; 
+    temp=top;
+    if(top == NULL){
+    printf("Stack empty");
+    }
+    else{
+         temp=top;
+         top=top->next;
+         temp->next=NULL;
+    }
+   
+    return temp;
+}
+
+
+
+
+struct Node *head=NULL;
+int middleElement=0;
+
+void insertNode(int _data){
+    struct Node *newNode=new Node();
+    newNode->data=_data;
+    newNode->next=NULL;
+    if(head ==NULL){
+        newNode->next=head;
+        head=newNode;
+    }
+    else
+    {
+        struct Node *temp=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+
+        temp->next=newNode;
+    }
+    
+}
+
+void Display(){
+    struct Node *temp=head;
+    while(temp!= NULL){
+        printf("%d",temp->data);
+        temp=temp->next;
+
+    }
+}
+
+bool isPalindron(Node *head)
+{
+        int isPalindrom=false;
+        int isPalin =0;
+        struct Node *start=head, *temp=head;
+        int counter=0;
+        while(start != NULL){
+        counter++;
+        start=start->next;
+        }
+        middleElement = counter/2;
+        if(counter%2 == 0)
+        {
+            for(int i=0;i<middleElement;i++){
+                push(temp->data);
+                temp=temp->next;
+            }
+
+            while(temp!=NULL){
+                struct StackNode *element=pop();
+                if(element->data == temp->data){
+                    isPalin=isPalin+1;
+                }
+                else{
+                    isPalin=0;
+                }
+                temp=temp->next;
+            }
+        }
+        else
+        {
+            for(int i=0;i<middleElement;i++){
+                push(temp->data);
+                temp=temp->next;
+            }
+            temp=temp->next;
+            while(temp!=NULL){
+                StackNode *element=pop();
+                if(element->data == temp->data){
+                    isPalin=isPalin+1;
+                }
+                else{
+                    isPalin=0;
+                }
+                temp=temp->next;
+            }
+        }
+    if(isPalin >0)
+    isPalindrom=true;
+    else
+    isPalindrom=false;
+    
+    return isPalin;
+
+}
+
+int main(){
+    insertNode(1);
+    insertNode(2);
+    insertNode(4);
+    insertNode(3);
+    insertNode(1);
+    bool a = isPalindron(head);
+}
+
+
 /*----------------------------- Practice Day 20 - Linked List - Doubly Linked List --------------------------------*/
 
 
